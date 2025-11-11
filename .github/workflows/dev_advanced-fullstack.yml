@@ -23,6 +23,14 @@ jobs:
         with:
           node-version: "22.x"
 
+      - name: Cache npm dependencies
+        uses: actions/cache@v4
+        with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
       - name: npm install, build, and test
         run: |
           npm install
@@ -34,8 +42,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: .
-        working-directory: ./frontend
+          path: ./frontend
 
   deploy:
     runs-on: ubuntu-latest
