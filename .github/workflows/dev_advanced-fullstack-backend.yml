@@ -26,7 +26,6 @@ jobs:
       - name: npm install, build, and test
         run: |
           npm install
-          npm run dev --if-present
         working-directory: ./backend
 
       - name: Upload artifact for deployment job
